@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>科亚特新闻详情页</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+    <link href="{P}/css/app.css" rel="stylesheet" media="screen">
+    <script src="{P}/js/vendor/modernizr.custom.js"></script>
+    <script src="{P}/js/vendor/detectizr.min.js"></script>
+</head>
+
+<!-- Body -->
+<body>
+<!-- Page Wrapper -->
+<div class="page-wrapper">
+    <!-- Navbar -->
+    <!-- Add class ".navbar-sticky" to make navbar stuck when it hits the top of the page. Another modifier class is: "navbar-fullwidth" to stretch navbar and make it occupy 100% of the page width. The screen width at which navbar collapses can be controlled through the variable "$nav-collapse" in sass/variables.scss -->
+    <header class="navbar">
+
+        <!-- Toolbar -->
+        <div class="topbar">
+            <div class="container">
+                <a href="index.html" class="site-logo">
+                    测试文章
+                </a><!-- .site-logo -->
+            </div><!-- .container -->
+        </div><!-- .topbar -->
+    </header><!-- .navbar -->
+
+    <!-- Page Title -->
+    <!--Add modifier class : "pt-fullwidth" to stretch page title and make it occupy 100% of the page width. -->
+    <section class="page-title">
+        <div class="container">
+            <div class="inner">
+                <div class="column">
+                    <div class="title">
+                        <h1>测试文章内容</h1>
+                    </div><!-- .title -->
+                </div><!-- .column -->
+                <div class="column">
+                </div><!-- .column -->
+            </div>
+        </div>
+    </section><!-- .page-title -->
+
+    <!-- Container -->
+    <div class="container">
+
+        <!-- Content -->
+        <div class="row">
+            <div class="col-lg-10 col-lg-offset-1">
+                <h1>{$article.a_title}</h1>
+                <div class="post-meta">
+                    <div class="column">
+              <span>
+                <i class="icon-head"></i>
+                <a href="#">{$article.a_author}</a>
+              </span>
+                        <span>在</span>
+                        <span>
+                <i class="icon-ribbon"></i>
+
+                <a href="index.php?c_id={$article.c_id}">
+                  {$smarty.session.categories[$article.c_id].c_name}
+                </a>
+
+
+              </span>
+                        <span>下发布</span>
+                        <span class="post-comments">
+                <i class="icon-speech-bubble"></i>
+                <a href="#">{count($comments)}</a>
+              </span>
+                    </div>
+                    <div class="column"><span>{date('Y m d',$article.a_time)}</span></div>
+                </div><!-- .post-meta -->
+              {if isset($article.a_img)}
+                <img src="http://blog.com/uploads/{$article.a_img}" alt="Image">
+              {/if}
+              <p>{$article.a_content}</p>
+                <div class="post-tools space-top-2x">
+                    <div class="column">
+                        <div class="tags-links">
+                            <a href="#">美食</a>
+                            <a href="#">教程</a>
+                            <a href="#">厨艺</a>
+                        </div>
+                    </div><!-- .column -->
+                    <div class="column">
+                    </div><!-- .column -->
+                </div><!-- .post-tools -->
+                <div class="post-tools space-top-2x">
+                    <div class="column"></div>
+                    <div class="column text-center">
+                        <a><i class="fa fa-thumbs-up dz" aria-hidden="true">（32）</i></a>
+                    </div><!-- .column -->
+                    <div class="column">
+                    </div><!-- .column -->
+                </div><!-- .post-tools -->
+
+                <!-- Comments -->
+                <div class="comments-area space-top-3x">
+                    <h4 class="comments-count">共有{count($comments)}条评论</h4>
+
+                    <!-- Comment -->
+                    {foreach $comments as $com}
+                    <div class="comment">
+                        <div class="comment-meta">
+                            <div class="column">
+                                <span class="comment-autor"><i class="icon-head"></i><a href="#">{$com.u_username}</a></span>
+                            </div>
+                            <div class="column">
+                                <span class="comment-date">{date('Y.m.d',$com.c_time)}</span>
+                            </div>
+                        </div><!-- .comment-meta -->
+                        <div class="comment-body">
+                            <p>{$com.c_comment}</p>
+                        </div><!-- .comment-body -->
+
+                    </div><!-- .comment -->
+                    {/foreach}
+
+
+                    <!-- Comment Form -->
+                    <div class="comment-respond">
+                        <h4 class="comment-reply-title">发布新评论</h4>
+<!-- 发布新评论-->
+                        <form method="post" id="comment-form" class="comment-form" action="index.php?c=comment&a=insert">
+                            <div class="form-group">
+                                <label for="cf_comment" class="sr-only">Comment</label>
+                                <textarea name="c_comment" id="cf_comment" class="form-control input-alt" rows="7"
+                                          placeholder="输入您的评论"></textarea>
+                            </div>
+
+                            <input type="hidden" name="a_id" value="{$article.id}">
+                            <p class="form-submit">
+                                {if isset($smarty.session.user)}
+                                <input name="submit" type="submit" id="submit" class="btn btn-primary btn-block"
+                                       value="发布">
+                                {else}
+                                <input name="submit" onclick="javasript:return false" type="submit" id="submit" class="btn btn-primary btn-block"
+                                       value="请先登录">
+                                {/if}
+                            </p>
+                        </form>
+
+                    </div><!-- .comment-respond -->
+                </div><!-- .comments-area -->
+            </div><!-- .col-lg-9.col-md-8 -->
+        </div><!-- .row -->
+    </div><!-- .container -->
+
+    <!-- Scroll To Top Button -->
+    <a href="#" class="scroll-to-top-btn">
+        <i class="icon-arrow-up"></i>
+    </a><!-- .scroll-to-top-btn -->
+
+    <!-- Footer -->
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="bottom-footer">
+            <div class="container">
+                <div class="copyright">
+                    <div class="column">
+                        <p>&copy; 2019. 保留所有权利。</p>
+                    </div><!-- .column -->
+                    <div class="column">
+                    </div><!-- .column -->
+                </div><!-- .copyright -->
+            </div><!-- .container -->
+        </div><!-- .bottom-footer -->
+    </footer><!-- .footer -->
+
+</div><!-- .page-wrapper -->
+
+<!-- JavaScript (jQuery) libraries, plugins and custom scripts -->
+<script src="{P}/js/vendor/jquery-2.1.4.min.js"></script>
+<script src="{P}/js/vendor/bootstrap.min.js"></script>
+<script src="{P}/js/vendor/waves.min.js"></script>
+<script src="{P}/js/vendor/placeholder.js"></script>
+<script src="{P}/js/vendor/waypoints.min.js"></script>
+<script src="{P}/js/vendor/velocity.min.js"></script>
+<script src="{P}/js/scripts.js"></script>
+</body><!-- <body> -->
+</html>
